@@ -40,7 +40,7 @@ function Homepage() {
 
             <h1 className="font-weight-bold">Top News America</h1>
             <p className="lead">All of America's top stories!</p>
-            <p>You need to login or register to see today's top s</p>
+            <p>You need to login or register to see today's top stories</p>
       
       </div>
   
