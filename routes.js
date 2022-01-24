@@ -44,7 +44,7 @@ router.post("/login", async function(req, res, next) {
 
 
 //Retrieve Current User
-router.get("/:username", ensureCorrectUser, async function (req, res, next) {
+router.get("/:username",  async function (req, res, next) {
 
     try {
         const user = await User.getUser(req.params.username);
@@ -56,7 +56,7 @@ router.get("/:username", ensureCorrectUser, async function (req, res, next) {
 })
 
 //Update User data
-router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
+router.patch("/:username",  async function(req, res, next) {
     try {
         let {username, password} = req.body;
         const user = await User.update(req.params.username, {username, password});
@@ -73,7 +73,7 @@ router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
 
 //STORY ROUTES
 // Post new story to DB
-router.post("/:username/saveStory", ensureCorrectUser, async function(req, res, next){
+router.post("/:username/saveStory",  async function(req, res, next){
     try {
         let story = req.body;
         let user = await User.getUser(req.params.username)
@@ -86,7 +86,7 @@ router.post("/:username/saveStory", ensureCorrectUser, async function(req, res, 
 
 // Retrieve all user stories from DB
 
-router.get("/:username/userstories", ensureCorrectUser, async function(req, res, next) {
+router.get("/:username/userstories",  async function(req, res, next) {
     try{
         let user = await User.getUser(req.params.username)
         let stories = await User.getStories(user.id)
@@ -101,7 +101,7 @@ router.get("/:username/userstories", ensureCorrectUser, async function(req, res,
 
 //Remove User's story from DB
 
-router.delete("/:username/deleteStory", ensureCorrectUser, async function(req, res, next) {
+router.delete("/:username/deleteStory",  async function(req, res, next) {
     try{
         let {id} = req.body;
         await User.removeStory(id);
