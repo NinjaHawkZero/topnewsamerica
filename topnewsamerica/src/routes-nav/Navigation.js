@@ -1,0 +1,63 @@
+import React, { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import UserContext from "../auth/UserContext";
+import "./Navigation.css";
+
+//Navigation bar
+
+function Navigation({logout}) {
+    const {currentUser} = useContext(UserContext);
+
+    function loggedInNav() {
+        return (
+            <ul className="navbar-nav ml-auto">
+            
+              <li className="nav-item mr-4">
+                <NavLink className="nav-link" to="/userProfile">
+                  {currentUser.username} User Stories
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/" onClick={logout}>
+                  Log out {currentUser.username}
+                </Link>
+              </li>
+              <li className="nav-item mr-4">
+                <NavLink className="nav-link" to="/userDataForm">
+                  Change User Data
+                </NavLink>
+              </li>
+
+
+            </ul>
+        );
+      }
+    
+      function loggedOutNav() {
+        return (
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item mr-4">
+                <NavLink className="nav-link" to="/login">
+                  Login
+                </NavLink>
+              </li>
+              <li className="nav-item mr-4">
+                <NavLink className="nav-link" to="/register">
+                  Register
+                </NavLink>
+              </li>
+            </ul>
+        );
+      }
+    
+      return (
+          <nav className="Navigation navbar navbar-expand-md">
+            <Link className="navbar-brand" to="/">
+              Top News America
+            </Link>
+            {currentUser ? loggedInNav() : loggedOutNav()}
+          </nav>
+      );
+}
+
+export default Navigation;
