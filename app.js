@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const { NotFoundError } = require("./expressError");
 const morgan = require("morgan");
+const path = require ("path")
 const { authenticateJWT } = require("./middleware/auth");
 
 const routes = require("./routes");
@@ -15,6 +16,11 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(authenticateJWT);
 app.use(routes);
+
+
+if(process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "topnewsamerica/build")));
+}
 
 // Generic error handler 
 app.use(function (err, req, res, next) {
