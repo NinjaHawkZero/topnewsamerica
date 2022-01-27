@@ -127,18 +127,25 @@ class User {
         }
 
 
-        const {setCols, values} = sqlForUpdate(data, {username: "username", password: "password" })
+        /*const {setCols, values} = sqlForUpdate(data, {username: "username", password: "password" })
 
         const setUserIdx = "$"  + (values.length + 1);
         const updateQuery = `UPDATE users
                     SET ${setCols}
                     WHERE username = ${setUserIdx} 
-                    RETURNING username, password`;
+                    RETURNING username, password`;*/
+
+        
+        const newQuery = `UPDATE users
+                        SET username = '${data.username}',
+                        password = '${data.password}'
+                        WHERE username = '${currentUsername}'
+                        RETURNING username, password`;        
 
 
+                  
 
-
-        const result = await db.query(updateQuery, [...values, currentUsername]);
+        const result = await db.query(newQuery);
 
         const user = result.rows[0];
 
